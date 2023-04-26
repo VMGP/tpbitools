@@ -116,13 +116,13 @@
 				let dir0 = ""
 				let dir1 = ""
 				for (let i = 0; i < linesinfo.lines.length; i++) {
-					console.log(i);
+					//console.log(i);
 					if (linesinfo.lines[i].type == urlvars["linetype"]) {
 						let response = await fetch("https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id);
 						let json = await response.json();
 						dir0 = json["direction_name_tur"];
 						dir1 = json["direction_name_retur"];
-						await sleep(250);
+						await sleep(50);
 						document.getElementsByName("findingtext")[0].innerHTML = "Cautare vehicul #" + urlvars["vehicle"].toString() + "...<br>Linia: " + linesinfo.lines[i].name + " Sens: " + dir0
 						response = await fetch("https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id + "/vehicles/0");
 						json = await response.json();
@@ -131,7 +131,7 @@
 								document.getElementsByClassName("finds")[0].innerHTML += '<br><div class="vehicle">#' + json[j].code + '<br>' + json[j].lat + ',' + json[j].lng + '<br>Linia ' + linesinfo.lines[i].name + " Sens: " + dir0 + '<br><a href="https://www.google.com/maps/@' + json[j].lat + ',' + json[j].lng + ',17z">Deschide in google maps</a></div><br>'
 							}
 						}
-						await sleep(250);
+						await sleep(100);
 						document.getElementsByName("findingtext")[0].innerHTML = "Cautare vehicul #" + urlvars["vehicle"].toString() + "...<br>Linia: " + linesinfo.lines[i].name + " Sens: " + dir1
 						response = await fetch("https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id + "/vehicles/1");
 						json = await response.json();
@@ -140,7 +140,7 @@
 								document.getElementsByClassName("finds")[0].innerHTML += '<br><div class="vehicle">#' + json[j].code + '<br>' + json[j].lat + ',' + json[j].lng + '<br>Linia ' + linesinfo.lines[i].name + " Sens: " + dir1 + '<br><a href="https://www.google.com/maps/@' + json[j].lat + ',' + json[j].lng + ',17z">Deschide in google maps</a></div><br>'
 							}
 						}
-						await sleep(250);
+						await sleep(100);
 					}
 					else {
 						document.getElementsByName("findingtext")[0].innerHTML = "Cautare vehicul #" + urlvars["vehicle"].toString() + "..."
