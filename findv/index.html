@@ -52,6 +52,10 @@
 			.searchbtn {
 				min-width: 200px;
 			}
+
+			.errors {
+				color: red;
+			}
 		</style>
 	</head>
 	<body>
@@ -75,7 +79,8 @@
 			<br>
 			<button type="button" id="search" class="searchbtn">Cautare</button> 
 		</div>
-
+		<br><br>
+		<div class="errors" align="center"></div>
 		<script>
 			function getUrlVars() {
     			var vars = {};
@@ -91,6 +96,9 @@
 
 			let urlvars = getUrlVars();
 
+			if (urlvars["err"]) {
+				document.getElementsByClassName("errors")[0].innerHTML = "Am intampinat o eroare. Reincercati."
+			}
 			
 			document.getElementById('search').onclick = function() {
 				let vehicle = document.getElementById("vehicle").value;
