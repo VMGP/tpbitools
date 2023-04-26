@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>Cautator vehicule TPBI</title>
+		<style>
+			@keyframes bodyanim {
+				0%   {background-color: #071e22;}
+				25%  {background-color: #1d7874;}
+				50%  {background-color: #679289;}
+				75%  {background-color: #1d7874;}
+				100% {background-color: #071e22;}
+			}
+
+			body {
+				font-family: sans-serif;
+				animation-duration: 40s;
+				animation-name: bodyanim;
+				animation-iteration-count: infinite;
+				color: white;
+			}
+
+			.custom-loader {
+				width:50px;
+				height:50px;
+				--c:radial-gradient(farthest-side,#766DF4 92%,#0000);
+				background: 
+					var(--c) 50% 0,
+					var(--c) 50% 100%,
+					var(--c) 100% 50%,
+					var(--c) 0    50%;
+				background-size:12px 12px;
+				background-repeat:no-repeat;
+				animation:s7 1s infinite;
+			}
+			@keyframes s7 {to{transform: rotate(.5turn)}}
+
+			.loadingdiv {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			.vehicle {
+				background-color: white;
+				color: black;
+				max-width: 400px;
+				padding: 10px;
+				border-radius: 10px;
+			}
+
+			#back{
+				animation-duration: 40s;
+				animation-name: linkanim;
+				animation-iteration-count: infinite;
+			}
+
+			@keyframes linkanim {
+				0%   {color: white;}
+				25%  {color: blue;}
+				50%  {color: black;}
+				75%  {color: blue;}
+				100% {color: white;}
+			}
+		</style>
+	</head>
+	<body>
+		<div align="center">
+			<h1>Cautare vehicule TPBI</h1>
+			by VMGP
+			<br><br>
+			<a href="index.html" id="back">Inapoi</a>
+		</div>
+		<br><br><br>
+		
+		<div class="loadingdiv" align="center">
+			<div class="custom-loader"></div>
+			<div name="findingtext">Se cauta...</div>
+		</div>
+		<br><br>
+		<div align="center">
+			<u><b>Rezultate</b></u>
+			<div class="finds">
+
+			</div>
+		</div>
+
+		<script>
+			function getUrlVars() {
+    			var vars = {};
+    			var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        			vars[key] = value;
+    			});
+    			return vars;
+			}
+
+			function sleep(ms) {
+    			return new Promise(resolve => setTimeout(resolve, ms));
+			}
+
+			let urlvars = getUrlVars();
+			let linesinfo
+
+			if(!urlvars["vehicle"]) {
+				window.location.href = "index.html?err=1"
+			}
+			if(!urlvars["linetype"]) {
+				window.location.href = "index.html?err=1"
+			}
+
+			fetch("https://info.stbsa.ro/rp/api/lines/")
+				.then((response) => response.json())
+				.then((json) => {linesinfo = json; test();});
+
+			async function test() {
+				let dir0 = ""
+				let dir1 = ""
+				for (let i = 0; i < linesinfo.lines.length; i++) {
+					if (linesinfo.lines[i].type == urlvars["linetype"]) {
+						let response = await fetch("https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id);
+						let json = await response.json();
+						dir0 = json["direction_name_tur"];
+						dir1 = json["direction_name_retur"];
+						await sleep(1000);
+						document.getElementsByName("findingtext")[0].innerHTML = "Cautare vehicul #" + urlvars["vehicle"].toString() + "...<br>Linia: " + linesinfo.lines[i].name + " Sens: " + dir0
+						response = await fetch("https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id + "/vehicles/0");
+						json = await response.json();
+						for (let j = 0; j < json.length; j++) {
+							if (json[j].code == urlvars["vehicle"]) {
+								document.getElementsByClassName("finds")[0].innerHTML += '<br><div class="vehicle">#' + json[j].code + '<br>' + json[j].lat + ',' + json[j].lng + '<br>Linia ' + linesinfo.lines[i].name + " Sens: " + dir0 + '<br><a href="https://www.google.com/maps/@' + json[j].lat + ',' + json[j].lng + ',17z">Deschide in google maps</a></div><br>'
+							}
+						}
+						await sleep(1000);
+						document.getElementsByName("findingtext")[0].innerHTML = "Cautare vehicul #" + urlvars["vehicle"].toString() + "...<br>Linia: " + linesinfo.lines[i].name + " Sens: " + dir1
+						response = await fetch("https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id + "/vehicles/1");
+						json = await response.json();
+						for (let j = 0; j < json.length; j++) {
+							if (json[j].code == urlvars["vehicle"]) {
+								document.getElementsByClassName("finds")[0].innerHTML += '<br><div class="vehicle">#' + json[j].code + '<br>' + json[j].lat + ',' + json[j].lng + '<br>Linia ' + linesinfo.lines[i].name + " Sens: " + dir1 + '<br><a href="https://www.google.com/maps/@' + json[j].lat + ',' + json[j].lng + ',17z">Deschide in google maps</a></div><br>'
+							}
+						}
+						await sleep(1000);
+					}
+					else {
+						document.getElementsByName("findingtext")[0].innerHTML = "Cautare vehicul #" + urlvars["vehicle"].toString() + "..."
+					}
+				}
+				document.getElementsByClassName("loadingdiv").innerHTML = "Cautare finalizata."
+			}
+		</script>
+	</body>
+</html>
