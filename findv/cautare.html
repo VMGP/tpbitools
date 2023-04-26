@@ -73,7 +73,7 @@
 		</div>
 		<br><br><br>
 		
-		<div class="loadingdiv" align="center">
+		<div class="loadingdiv" name="loadingdiv" align="center">
 			<div class="custom-loader"></div>
 			<div name="findingtext">Se cauta...</div>
 		</div>
@@ -116,6 +116,7 @@
 				let dir0 = ""
 				let dir1 = ""
 				for (let i = 0; i < linesinfo.lines.length; i++) {
+					console.log(i);
 					if (linesinfo.lines[i].type == urlvars["linetype"]) {
 						let response = await fetch("https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id);
 						let json = await response.json();
@@ -145,7 +146,8 @@
 						document.getElementsByName("findingtext")[0].innerHTML = "Cautare vehicul #" + urlvars["vehicle"].toString() + "..."
 					}
 				}
-				document.getElementsByClassName("loadingdiv").innerHTML = "Cautare finalizata."
+				console.log("finished");
+				document.getElementsByClassName("loadingdiv")[0].innerHTML = "Cautare finalizata."
 			}
 		</script>
 	</body>
