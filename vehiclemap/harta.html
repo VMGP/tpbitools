@@ -283,12 +283,12 @@
 
 					if (document.getElementById("line" + linesinfo.lines[i].name).checked == false) continue;
 
-					let bresponse = await fetch("https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id);
+					let bresponse = await fetch("https://corsproxy.io/?https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id);
 					let bjson = await bresponse.json();
 					dir0 = bjson["direction_name_tur"];
 					dir1 = bjson["direction_name_retur"];	
 
-					let response = await fetch("https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id + "/vehicles/0");
+					let response = await fetch("https://corsproxy.io/?https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id + "/vehicles/0");
 					let jsonr = await response.json();
 
 					if (linesinfo.lines[i].type == "TRAM") currentIcon = tramIcon;
@@ -304,7 +304,7 @@
 						vlconnection.set(jsonr[j].code, linesinfo.lines[i].name);
 					}
 
-					response = await fetch("https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id + "/vehicles/1");
+					response = await fetch("https://corsproxy.io/?https://info.stbsa.ro/rp/api/lines/" + linesinfo.lines[i].id + "/vehicles/1");
 					jsonr = await response.json();
 
 					await sleep(50);
@@ -339,7 +339,7 @@
 			}
 
 			function setup() {
-				fetch("https://info.stbsa.ro/rp/api/lines/")
+				fetch("https://corsproxy.io/?https://info.stbsa.ro/rp/api/lines/")
 					.then((response) => response.json())
 					.then((json) => {linesinfo = json; startloop();});
 
