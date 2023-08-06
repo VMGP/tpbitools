@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Harta vehicule</title>
+	<script>
+		//window.location.href = "index.html"
+	</script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+	<style>
+		@keyframes bodyanim {
+			0% {
+				background-color: #071e22;
+			}
+
+			25% {
+				background-color: #1d7874;
+			}
+
+			50% {
+				background-color: #679289;
+			}
+
+			75% {
+				background-color: #1d7874;
+			}
+
+			100% {
+				background-color: #071e22;
+			}
+		}
+
+		body {
+			font-family: sans-serif;
+			animation-duration: 40s;
+			animation-name: bodyanim;
+			animation-iteration-count: infinite;
+			overflow: hidden;
+		}
+
+		.custom-loader {
+			width: 50px;
+			height: 50px;
+			--c: radial-gradient(farthest-side,#766DF4 92%,#0000);
+			background: var(--c) 50% 0, var(--c) 50% 100%, var(--c) 100% 50%, var(--c) 0 50%;
+			background-size: 12px 12px;
+			background-repeat: no-repeat;
+			animation: s7 1s infinite;
+		}
+
+		@keyframes s7 {
+			to {
+				transform: rotate(.5turn)
+			}
+		}
+
+		.loadingdiv {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		.vehicle {
+			background-color: white;
+			color: black;
+			max-width: 400px;
+			padding: 10px;
+			border-radius: 10px;
+		}
+
+		.container {
+			position: absolute;
+			display: flex;
+			width: 100%;
+			height: 100%;
+			background-color: white;
+			top:0px;left:0px;right:0px;bottom:0px;
+		}
+
+		.map {
+			flex-grow: 3;
+			z-index: 1;
+			color: black;
+		}
+
+        .overlay {
+			color: black;
+			z-index: 2;
+			width: 72px;
+			box-shadow: 0 1px 2px rgba(60,64,67,0.3),0 2px 6px 2px rgba(60,64,67,0.15);
+			transition:500ms;
+        }
+		
+		.sidebar {
+			height:100%;
+			width: 72px;
+		}
+
+		.navbutton {
+			width: 72px;
+			height: 72px;
+			border: none;
+			outline: none;
+			background-color: white;
+		}
+
+		.navbutton:hover {
+			background-color: #3559d9;
+			color: white;
+		}
+
+		.navbutton:hover .svgicon {
+			fill: white !important;
+		}
+
+		.svgicon {
+			fill: #555;
+		}
+
+		.sidepanel {
+			background-color: white;
+			position: fixed;
+			width:0;
+			height:100%;
+			top:0;
+			left:72px;
+			overflow-x:hidden;
+			transition:500ms;
+		}
+
+        #back {
+            animation-duration: 40s;
+            animation-name: linkanim;
+            animation-iteration-count: infinite;
+        }
+
+		.linelabel {
+			border-radius: 10px;
+			color: white;
+			padding: 5px;
+			margin: 5px;
+		}
+
+		.close_btn {
+			border: none;
+			outline: none;
+			background-color: white;
+			padding:10px;
+		}
+
+		.close_btn:hover {
+			background-color: red;
+		}
+
+        @keyframes linkanim {
+            0% {
+                color: white;
+            }
+
+            25% {
+                color: blue;
+            }
+
+            50% {
+                color: black;
+            }
+
+            75% {
+                color: blue;
+            }
+
+            100% {
+                color: white;
+            }
+        }
+	</style>
+</head>
+	<body>
+		<div class="container">
+			<div id="overlay" class="overlay">
+				<div class="sidebar" align="center">
+					<button class="navbutton" id="linesbtn" title="Linii" onclick="btnclicked(this.id)">
+						<svg width="24" height="24" viewBox="1.25 1.25 13.5 13.5" class="svgicon"><path fill-rule="nonzero" d="M12 1.333a2.667 2.667 0 1 1-.69 5.243L6.575 11.31A2.67 2.67 0 0 1 4 14.667a2.667 2.667 0 1 1 .69-5.244L9.423 4.69A2.67 2.67 0 0 1 12 1.333zm-8 9.334a1.333 1.333 0 1 0 0 2.666 1.333 1.333 0 0 0 0-2.666zm8-8a1.333 1.333 0 1 0 0 2.666 1.333 1.333 0 0 0 0-2.666z"></path></svg>
+					</button>
+					<button class="navbutton" id="aboutbtn" title="Despre (creator si multumiri)" onclick="btnclicked(this.id)">
+						<svg width="24" height="24" viewBox="1.5 1.5 13 13" class="svgicon"><path d="M8 11.513L12.12 14l-1.093-4.687 3.64-3.153-4.794-.407L8 1.333l-1.873 4.42-4.794.407 3.64 3.153L3.88 14z"></path></svg>
+					</button>
+				</div>
+				<div class="sidepanel" id="linepanel">
+					<div style="width:100%" align="right"><button class="close_btn" title="Inchide" onclick="closepanels()">❌</button></div>
+					<h1>Afisare linii</h1>
+					De aici puteti selecta vehiculele caror linii sa se afiseze pe harta. Modificarile se salveaza automat.
+					<br><br>
+					<b>TRAM</b> - Tramvai <br>
+					<b>CABLE_CAR</b> - Troleibuz <br>
+					<b>BUS</b> - Autobuz <br>
+					<div class="linecontainer" id="linecontainer">
+						<br>
+						<br>
+						<div align="center" style="border-color:red; border-style: solid;">
+							<h3 style="color:red"><u>Hopa! :(</u></h3>
+							Daca nu vezi nimic aici, inseamna ca ceva s-a intamplat gresit. Reincearca mai tarziu. <br>
+						</div>
+						
+					</div>
+				</div>
+				<div class="sidepanel" id="aboutpanel">
+					<div style="width:100%" align="right"><button class="close_btn" title="Inchide" onclick="closepanels()">❌</button></div>
+					<h1>Despre</h1>
+					Harta vehicule TPBI <br>
+					Realizata de: <b>VMGP</b>
+					<br><br>
+					Le multumim baietilor de la <a href="https://leafletjs.com/"><b>Leaflet</b></a> si <a href="https://www.openstreetmap.org"><b>OpenStreetMap</b></a>.
+					<br><br><br>
+					<b>Contact</b><br>
+					Discord: vmgp
+					<br><br>
+					<b><u>Info depanare</u></b><br><br>
+					<b>User-Id:</b>
+					<input type="text" readonly id="user-id" style="width: 300px;"></input><br>
+					<b>Proxy:</b>
+					<div id="proxy"></div>Default<br>
+				</div>
+			</div>
+			<div id="map" class="map"></div>
+		</div>
+		
+		<script>
+			function btnclicked(btn_id) {
+				if (btn_id == "linesbtn") {
+					document.getElementById("overlay").style.width = "372px";
+					document.getElementById("linepanel").style.width = "300px";
+					document.getElementById("aboutpanel").style.width = "0px";
+				}
+				else if (btn_id == "aboutbtn") {
+					document.getElementById("overlay").style.width = "372px";
+					document.getElementById("linepanel").style.width = "0px";
+					document.getElementById("aboutpanel").style.width = "300px";
+				}
+			}
+
+			function closepanels() {
+				document.getElementById("overlay").style.width = "72px";
+				document.getElementById("linepanel").style.width = "0px";
+				document.getElementById("aboutpanel").style.width = "0px";
+			}
+		</script>
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+		<script>
+			function getUrlVars() {
+    			var vars = {};
+    			var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        			vars[key] = value;
+    			});
+    			return vars;
+			}
+
+			urlvars = getUrlVars();
+
+			var vehicles
+			let linesinfo
+			var vlconnection = new Map();
+			var vehiclemarkers = new Object();
+			let dir0, dir1;
+			let currentIcon;
+
+			let proxy_addr = "https://corsproxy.io/?"; //http://localhost:8008/
+			let fake_os_type = "Web";
+			let fake_os_ver = "amogus";
+			let fake_app_id = "bucc2cc5d8f-2bbd-4581-8da2-e6f37adf1ffe";
+			let fake_app_ver = "0.0.0";
+			let fake_device = "Firefox";
+			let api_key = "gcALgRyZHC,qFonZ=Jde";
+			let login = false;
+			let login_id = "";
+
+			let rawlineinfo1 = new Object();
+			let rawlineinfo2 = new Object();
+
+			// Creating map options
+			var mapOptions = {
+				center: [44.4379187, 26.0122374],
+				zoom: 12,
+				
+			}
+			var tramIcon = L.icon({iconUrl: 'round-tram.png', iconsize: [12,12], iconAnchor: [12, 12]})
+			var busIcon = L.icon({iconUrl: 'round-bus.png', iconsize: [12,12], iconAnchor: [12, 12]})
+			var trIcon = L.icon({iconUrl: 'round-cablecar.png', iconsize: [12,12], iconAnchor: [12, 12]})
+
+			// Creating a map object
+			var map = new L.map('map', mapOptions);
+
+			// Creating a Layer object
+			var layer = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'});
+
+			// Adding layer to the map
+			map.addLayer(layer);
+
+			let temp_req_headers = {
+				"OS-Type": fake_os_type,
+				"App-Id": fake_app_id,
+				"App-Version": fake_app_ver,
+				"OS-Version": fake_os_ver,
+				"Lang": "ro",
+				"Device-Name": fake_device
+			};
+
+			function makeReq(url) {
+				if (login) {
+					return fetch(proxy_addr + url, {headers: {
+																"OS-Type": fake_os_type,
+																"App-Id": fake_app_id,
+																"App-Version": fake_app_ver,
+																"OS-Version": fake_os_ver,
+																"Lang": "ro",
+																"Device-Name": fake_device,
+																"User-Info": login_id
+					}});
+				}
+				else {
+					return fetch(proxy_addr + url, {headers: {
+																"OS-Type": fake_os_type,
+																"App-Id": fake_app_id,
+																"App-Version": fake_app_ver,
+																"OS-Version": fake_os_ver,
+																"Lang": "ro",
+																"Device-Name": fake_device,
+																"App-Key": api_key
+					}});
+				}
+				//return fetch(proxy_addr + url, {headers: temp_req_headers});
+			}
+
+			function sleep(ms) {
+    			return new Promise(resolve => setTimeout(resolve, ms));
+			}
+
+			async function loop() {
+				for (let i = 0; i < linesinfo.lines.length; i++) {
+					if (linesinfo.lines[i].type == "SUBWAY") continue;
+					for (const [key, value] of vlconnection.entries()) {
+						if (value == linesinfo.lines[i].name) {
+							vehiclemarkers[key].remove();
+							vehiclemarkers[key] = null;
+							vlconnection.delete(key);
+						}
+					}
+
+					if (document.getElementById("line" + linesinfo.lines[i].name).checked == false) continue;
+					dir0 = linesinfo.lines[i].end1;
+					dir1 = linesinfo.lines[i].end2;
+
+					let response = await makeReq("https://info.stbsa.ro/v2/api/web/lines/" + linesinfo.lines[i].id + "/vehicles/0");
+					let jsonr = await response.json();
+
+					if (linesinfo.lines[i].type == "TRAM") currentIcon = tramIcon;
+					if (linesinfo.lines[i].type == "CABLE_CAR") currentIcon = trIcon;
+					if (linesinfo.lines[i].type == "BUS") currentIcon = busIcon;
+
+					await sleep(50);
+					for (let j = 0; j < jsonr.length; j++) {
+
+
+						vehiclemarkers[jsonr[j].code] = L.marker([jsonr[j].lat, jsonr[j].lng], {icon: currentIcon}).addTo(map)
+																			.bindPopup(jsonr[j].code + "<br>Linia " + linesinfo.lines[i].name + " - catre " + dir0);
+						vlconnection.set(jsonr[j].code, linesinfo.lines[i].name);
+					}
+
+					response = await makeReq("https://info.stbsa.ro/v2/api/web/lines/" + linesinfo.lines[i].id + "/vehicles/1");
+					jsonr = await response.json();
+
+					await sleep(50);
+					for (let j = 0; j < jsonr.length; j++) {
+						vehiclemarkers[jsonr[j].code] = L.marker([jsonr[j].lat, jsonr[j].lng], {icon: currentIcon}).addTo(map)
+																			.bindPopup(jsonr[j].code + "<br>Linia " + linesinfo.lines[i].name + " - catre " + dir1);
+						vlconnection.set(jsonr[j].code, linesinfo.lines[i].name);
+						
+					}
+				}		
+			}
+
+			async function startloop() {
+				document.getElementById("linecontainer").innerHTML = "";
+				for (let i = 0; i < linesinfo.lines.length; i++) {
+					if (linesinfo.lines[i].type == "SUBWAY") continue;
+					document.getElementById("linecontainer").innerHTML += '<br>';
+					if (true == false) { //linesinfo.lines[i].name == "14" || linesinfo.lines[i].name == "19" || linesinfo.lines[i].name == "23" || linesinfo.lines[i].name == "27" || linesinfo.lines[i].name == "40" || linesinfo.lines[i].name == "55"
+						document.getElementById("linecontainer").innerHTML += '<input type="checkbox" checked=true class="linebox" id="line' + linesinfo.lines[i].name + '">'
+					} 
+					else 
+					{
+						document.getElementById("linecontainer").innerHTML += '<input type="checkbox" class="linebox" id="line' + linesinfo.lines[i].name + '">'
+					}
+					document.getElementById("linecontainer").innerHTML += '<label style="background-color: ' + linesinfo.lines[i].color + '" class="linelabel" for="line' + linesinfo.lines[i].name + '"><b>' + linesinfo.lines[i].type + ' - ' + linesinfo.lines[i].name + '</b></label><br>'
+				}
+
+				while (true) {
+					await loop();
+					await sleep(10000);
+				}
+			}
+
+			async function getlines() {
+				fetch("lines.json")
+					.then((response) => response.json())
+					.then((json) => {linesinfo = json; startloop()});
+			}
+
+			async function setup() {
+				if (urlvars) {
+					if (urlvars["proxy"]) {
+						proxy_addr = urlvars["proxy"];
+						document.getElementById("proxy").innerHTML = proxy_addr;
+					}
+				}
+
+				let temp_req = await makeReq("https://info.stbsa.ro/v2/api/web/user/auth");
+				let temp_json = await temp_req.json();
+				if (temp_json["user_info"]) {
+					//console.log
+					login_id = temp_json["user_info"];
+					document.getElementById("user-id").value = login_id;
+					login = true;
+					getlines();
+				}
+
+				console.log(login_id);
+
+				/*fetch("https://info.stbsa.ro/rp/api/lines/")
+					.then((response) => response.json())
+					.then((json) => {linesinfo = json; startloop();});*/
+
+				//loop();
+			}
+			setup();
+		</script>
+	</body>
+</html>

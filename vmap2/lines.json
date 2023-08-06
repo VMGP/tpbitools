@@ -1,0 +1,26 @@
+{
+	"lines": [
+		{"id": 68, "name": "1", "type": "TRAM", "color":"#BE1622", "end1": "Bd. Banu Manta", "end2": "Sura Mare"},
+		{"id": 469, "name": "3", "type": "TRAM", "color":"#BE1622", "end1": "Mezes", "end2": "Piata Presei"},
+		{"id": 814, "name": "5", "type": "TRAM", "color":"#BE1622", "end1": "Piata Baneasa", "end2": "Piata Sf. Gheorghe"},
+		{"id": 69, "name": "7", "type": "TRAM", "color":"#BE1622", "end1": "Soseaua Giurgiului", "end2": "CFR Progresul"},
+		{"id": 67, "name": "10", "type": "TRAM", "color":"#BE1622", "end1": "Bd. Banu Manta", "end2": "Sura Mare"},
+		{"id": 54, "name": "11", "type": "TRAM", "color":"#BE1622", "end1": "Cartier 16 Februarie", "end2": "Zetarilor"},
+		{"id": 878, "name": "12", "type": "TRAM", "color":"#BE1622", "end1": "Gara Basarab", "end2": "CFR Progresul"},
+		{"id": 53, "name": "14", "type": "TRAM", "color":"#BE1622", "end1": "Pantelimon", "end2": "Piata Sf. Vineri"},
+		{"id": 51, "name": "16", "type": "TRAM", "color":"#BE1622", "end1": "Platforma Industriala Pipera", "end2": "Piata Sf. Vineri"},
+		{"id": 47, "name": "19", "type": "TRAM", "color":"#BE1622", "end1": "Piata Unirii", "end2": "Chimopar"},
+		{"id": 55, "name": "21", "type": "TRAM", "color":"#BE1622", "end1": "Pasaj Colentina", "end2": "Piata Sf. Gheorghe"},
+		{"id": 63, "name": "23", "type": "TRAM", "color":"#BE1622", "end1": "Faur Poarta 4", "end2": "Zetarilor"},
+		{"id": 64, "name": "24", "type": "TRAM", "color":"#BE1622", "end1": "Vasile Parvan", "end2": "Cartier Damaroaia"},
+		{"id": 66, "name": "27", "type": "TRAM", "color":"#BE1622", "end1": "Piata Unirii", "end2": "Chimopar"},
+		{"id": 70, "name": "32", "type": "TRAM", "color":"#BE1622", "end1": "Piata Unirii", "end2": "Depoul Alexandria"},
+		{"id": 50, "name": "36", "type": "TRAM", "color":"#BE1622", "end1": "Platforma Industriala Pipera", "end2": "Republica"},
+		{"id": 58, "name": "40", "type": "TRAM", "color":"#BE1622", "end1": "Piata Sf. Vineri", "end2": "Chimopar"},
+		{"id": 57, "name": "41", "type": "TRAM", "color":"#BE1622", "end1": "Ghencea", "end2": "Piata Presei"},
+		{"id": 60, "name": "44", "type": "TRAM", "color":"#BE1622", "end1": "Vasile Parvan", "end2": "Cartier 16 Februarie"},
+		{"id": 59, "name": "45", "type": "TRAM", "color":"#BE1622", "end1": "Gara de Nord", "end2": "Mezes"},
+		{"id": 61, "name": "47", "type": "TRAM", "color":"#BE1622", "end1": "Piata Unirii", "end2": "Ghencea"},
+		{"id": 48, "name": "55", "type": "TRAM", "color":"#BE1622", "end1": "Pantelimon", "end2": "Piata Sf. Vineri"}
+	]
+}
