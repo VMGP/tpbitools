@@ -217,14 +217,17 @@
 					Discord: vmgp
 					<br><br>
 					<b><u>Changelog</u></b>
-					<div id="changelog"></div>
+					<code><div id="changelog"></div></code>
+					<br>
 					<b><u>Info depanare</u></b><br><br>
 					<b>User-Id:</b>
 					<input type="text" readonly id="user-id" style="width: 280px;"></input><br>
 					<b>Proxy:</b>
 					<div id="proxy">Default</div><br>
 					<b>Line update timeout:</b>
-					<div id="lineupdate">10 seconds</div>
+					<div id="lineupdate">10 seconds</div><br>
+					<b>Sarcina curenta:</b>
+					<div id="task"></div>
 				</div>
 			</div>
 			<div id="map" class="map"></div>
@@ -354,6 +357,7 @@
 					if (document.getElementById("line" + linesinfo.lines[i].name).checked == false) continue;
 					dir0 = linesinfo.lines[i].end1;
 					dir1 = linesinfo.lines[i].end2;
+					document.getElementById("task").innerHTML = "Se aduna informatii despre linia " + linesinfo.lines[i].name + "...";
 
 					let response = await makeReq("https://info.stbsa.ro/v2/api/web/lines/" + linesinfo.lines[i].id + "/vehicles/0");
 					let jsonr = await response.json();
@@ -363,6 +367,7 @@
 					if (linesinfo.lines[i].type == "BUS") currentIcon = busIcon;
 
 					await sleep(50);
+					document.getElementById("task").innerHTML = "Cautare vehicule linia " + linesinfo.lines[i].name + ", sensul 0 (" + dir0 + ")...";
 					for (let j = 0; j < jsonr.length; j++) {
 
 
@@ -375,6 +380,7 @@
 					jsonr = await response.json();
 
 					await sleep(50);
+					document.getElementById("task").innerHTML = "Cautare vehicule linia " + linesinfo.lines[i].name + ", sensul 1 (" + dir1 + ")...";
 					for (let j = 0; j < jsonr.length; j++) {
 						vehiclemarkers[jsonr[j].code] = L.marker([jsonr[j].lat, jsonr[j].lng], {icon: currentIcon}).addTo(map)
 																			.bindPopup("Nr parc: <b>" + jsonr[j].code + "</b><br>Podea coborata: " + (jsonr[j]["has_disability"] ? "Da" : "Nu") + "<br>Linia <b>" + linesinfo.lines[i].name + "</b> - catre <b>" + dir1 + "</b>");
@@ -401,6 +407,7 @@
 
 				while (true) {
 					await loop();
+					document.getElementById("task").innerHTML = "In asteptare...";
 					await sleep(10000);
 				}
 			}
