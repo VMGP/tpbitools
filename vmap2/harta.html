@@ -216,11 +216,15 @@
 					<b>Contact</b><br>
 					Discord: vmgp
 					<br><br>
+					<b><u>Changelog</u></b>
+					<div id="changelog"></div>
 					<b><u>Info depanare</u></b><br><br>
 					<b>User-Id:</b>
-					<input type="text" readonly id="user-id" style="width: 300px;"></input><br>
+					<input type="text" readonly id="user-id" style="width: 280px;"></input><br>
 					<b>Proxy:</b>
-					<div id="proxy"></div>Default<br>
+					<div id="proxy">Default</div><br>
+					<b>Line update timeout:</b>
+					<div id="lineupdate">10 seconds</div>
 				</div>
 			</div>
 			<div id="map" class="map"></div>
@@ -363,7 +367,7 @@
 
 
 						vehiclemarkers[jsonr[j].code] = L.marker([jsonr[j].lat, jsonr[j].lng], {icon: currentIcon}).addTo(map)
-																			.bindPopup(jsonr[j].code + "<br>Linia " + linesinfo.lines[i].name + " - catre " + dir0);
+																			.bindPopup("Nr parc: <b>" + jsonr[j].code + "</b><br>Podea coborata: " + (jsonr[j]["has_disability"] ? "Da" : "Nu") + "<br>Linia <b>" + linesinfo.lines[i].name + "</b> - catre <b>" + dir0 + "</b>");
 						vlconnection.set(jsonr[j].code, linesinfo.lines[i].name);
 					}
 
@@ -373,7 +377,7 @@
 					await sleep(50);
 					for (let j = 0; j < jsonr.length; j++) {
 						vehiclemarkers[jsonr[j].code] = L.marker([jsonr[j].lat, jsonr[j].lng], {icon: currentIcon}).addTo(map)
-																			.bindPopup(jsonr[j].code + "<br>Linia " + linesinfo.lines[i].name + " - catre " + dir1);
+																			.bindPopup("Nr parc: <b>" + jsonr[j].code + "</b><br>Podea coborata: " + (jsonr[j]["has_disability"] ? "Da" : "Nu") + "<br>Linia <b>" + linesinfo.lines[i].name + "</b> - catre <b>" + dir1 + "</b>");
 						vlconnection.set(jsonr[j].code, linesinfo.lines[i].name);
 						
 					}
@@ -414,6 +418,10 @@
 						document.getElementById("proxy").innerHTML = proxy_addr;
 					}
 				}
+
+				let change_req = await fetch("changelog.txt");
+				let change_text = await change_req.text();
+				document.getElementById("changelog").innerHTML = change_text;
 
 				let temp_req = await makeReq("https://info.stbsa.ro/v2/api/web/user/auth");
 				let temp_json = await temp_req.json();
