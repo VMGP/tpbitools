@@ -228,6 +228,8 @@
 					<div id="lineupdate">10 seconds</div><br>
 					<b>Sarcina curenta:</b>
 					<div id="task"></div>
+					<br><br>
+					<textarea id="errormsg" rows="7" style="width: 280px; resize: none; border: none; outline: none;" readonly></textarea>
 				</div>
 			</div>
 			<div id="map" class="map"></div>
@@ -314,8 +316,9 @@
 			};
 
 			function makeReq(url) {
-				if (login) {
-					return fetch(proxy_addr + url, {headers: {
+				try {
+					if (login) {
+						return fetch(proxy_addr + url, {headers: {
 																"OS-Type": fake_os_type,
 																"App-Id": fake_app_id,
 																"App-Version": fake_app_ver,
@@ -324,9 +327,9 @@
 																"Device-Name": fake_device,
 																"User-Info": login_id
 					}});
-				}
-				else {
-					return fetch(proxy_addr + url, {headers: {
+					}
+					else {
+						return fetch(proxy_addr + url, {headers: {
 																"OS-Type": fake_os_type,
 																"App-Id": fake_app_id,
 																"App-Version": fake_app_ver,
@@ -334,8 +337,13 @@
 																"Lang": "ro",
 																"Device-Name": fake_device,
 																"App-Key": api_key
-					}});
+						}});
 				}
+				}
+				catch (ex) {
+					document.getElementById("errormsg").innerHTML = "Eroare intampinata la cererea " + url + "\n" + ex;
+				}
+				
 				//return fetch(proxy_addr + url, {headers: temp_req_headers});
 			}
 
@@ -358,7 +366,9 @@
 					dir0 = linesinfo.lines[i].end1;
 					dir1 = linesinfo.lines[i].end2;
 					document.getElementById("task").innerHTML = "Se aduna informatii despre linia " + linesinfo.lines[i].name + "...";
-
+					await sleep(50);
+					
+					document.getElementById("task").innerHTML = "Cautare vehicule linia " + linesinfo.lines[i].name + ", sensul 0 (" + dir0 + ")...";
 					let response = await makeReq("https://info.stbsa.ro/v2/api/web/lines/" + linesinfo.lines[i].id + "/vehicles/0");
 					let jsonr = await response.json();
 
@@ -367,7 +377,6 @@
 					if (linesinfo.lines[i].type == "BUS") currentIcon = busIcon;
 
 					await sleep(50);
-					document.getElementById("task").innerHTML = "Cautare vehicule linia " + linesinfo.lines[i].name + ", sensul 0 (" + dir0 + ")...";
 					for (let j = 0; j < jsonr.length; j++) {
 
 
