@@ -385,11 +385,11 @@
 						vlconnection.set(jsonr[j].code, linesinfo.lines[i].name);
 					}
 
+					document.getElementById("task").innerHTML = "Cautare vehicule linia " + linesinfo.lines[i].name + ", sensul 1 (" + dir1 + ")...";
 					response = await makeReq("https://info.stbsa.ro/v2/api/web/lines/" + linesinfo.lines[i].id + "/vehicles/1");
 					jsonr = await response.json();
 
 					await sleep(50);
-					document.getElementById("task").innerHTML = "Cautare vehicule linia " + linesinfo.lines[i].name + ", sensul 1 (" + dir1 + ")...";
 					for (let j = 0; j < jsonr.length; j++) {
 						vehiclemarkers[jsonr[j].code] = L.marker([jsonr[j].lat, jsonr[j].lng], {icon: currentIcon}).addTo(map)
 																			.bindPopup("Nr parc: <b>" + jsonr[j].code + "</b><br>Podea coborata: " + (jsonr[j]["has_disability"] ? "Da" : "Nu") + "<br>Linia <b>" + linesinfo.lines[i].name + "</b> - catre <b>" + dir1 + "</b>");
