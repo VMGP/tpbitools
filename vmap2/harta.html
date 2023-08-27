@@ -433,6 +433,12 @@
 						proxy_addr = urlvars["proxy"];
 						document.getElementById("proxy").innerHTML = proxy_addr;
 					}
+					if (urlvars["darkmode"]) {
+						document.querySelectorAll('.leaflet-layer').forEach(item => {item.style.filter = "invert(100%) hue-rotate(180deg) grayscale(80%) brightness(80%) contrast(90%);";});
+						document.querySelectorAll('.leaflet-control-zoom-in').forEach(item => {item.style.filter = "invert(100%) hue-rotate(180deg) grayscale(80%) brightness(80%) contrast(90%);";});
+						document.querySelectorAll('.leaflet-control-zoom-out').forEach(item => {item.style.filter = "invert(100%) hue-rotate(180deg) grayscale(80%) brightness(80%) contrast(90%);";});
+						document.querySelectorAll('.leaflet-control-attribution').forEach(item => {item.style.filter = "invert(100%) hue-rotate(180deg) grayscale(80%) brightness(80%) contrast(90%);";});
+					}
 				}
 
 				let change_req = await fetch("changelog.txt");
