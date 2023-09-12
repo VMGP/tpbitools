@@ -9,7 +9,7 @@
 		{"id": 878, "name": "12", "type": "TRAM", "color":"#BE1622", "end1": "Gara Basarab", "end2": "CFR Progresul"},
 		{"id": 53, "name": "14", "type": "TRAM", "color":"#BE1622", "end1": "Pantelimon", "end2": "Piata Sf. Vineri"},
 		{"id": 51, "name": "16", "type": "TRAM", "color":"#BE1622", "end1": "Platforma Industriala Pipera", "end2": "Piata Sf. Vineri"},
-		{"id": 47, "name": "19", "type": "TRAM", "color":"#BE1622", "end1": "Piata Unirii", "end2": "Chimopar"},
+		{"id": 47, "name": "19", "type": "TRAM", "color":"#BE1622", "end1": "Zetarilor", "end2": "Chimopar"},
 		{"id": 55, "name": "21", "type": "TRAM", "color":"#BE1622", "end1": "Pasaj Colentina", "end2": "Piata Sf. Gheorghe"},
 		{"id": 63, "name": "23", "type": "TRAM", "color":"#BE1622", "end1": "Faur Poarta 4", "end2": "Zetarilor"},
 		{"id": 64, "name": "24", "type": "TRAM", "color":"#BE1622", "end1": "Vasile Parvan", "end2": "Cartier Damaroaia"},
@@ -21,6 +21,9 @@
 		{"id": 60, "name": "44", "type": "TRAM", "color":"#BE1622", "end1": "Vasile Parvan", "end2": "Cartier 16 Februarie"},
 		{"id": 59, "name": "45", "type": "TRAM", "color":"#BE1622", "end1": "Gara de Nord", "end2": "Mezes"},
 		{"id": 61, "name": "47", "type": "TRAM", "color":"#BE1622", "end1": "Piata Unirii", "end2": "Ghencea"},
-		{"id": 48, "name": "55", "type": "TRAM", "color":"#BE1622", "end1": "Pantelimon", "end2": "Piata Sf. Vineri"}
+		{"id": 48, "name": "55", "type": "TRAM", "color":"#BE1622", "end1": "Pantelimon", "end2": "Piata Sf. Vineri"},
+		
+		{"id": 84, "name": "61", "type": "CABLE_CAR", "color":"#008d36", "end1": "Piata Rosetti", "end2": "Master"},
+		{"id": 81, "name": "62", "type": "CABLE_CAR", "color":"#008d36", "end1": "Gara de Nord", "end2": "Grup Scolar Auto"}
 	]
 }
