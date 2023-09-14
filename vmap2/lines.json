@@ -24,6 +24,18 @@
 		{"id": 48, "name": "55", "type": "TRAM", "color":"#BE1622", "end1": "Pantelimon", "end2": "Piata Sf. Vineri"},
 		
 		{"id": 84, "name": "61", "type": "CABLE_CAR", "color":"#008d36", "end1": "Piata Rosetti", "end2": "Master"},
-		{"id": 81, "name": "62", "type": "CABLE_CAR", "color":"#008d36", "end1": "Gara de Nord", "end2": "Grup Scolar Auto"}
+		{"id": 81, "name": "62", "type": "CABLE_CAR", "color":"#008d36", "end1": "Gara de Nord", "end2": "Grup Scolar Auto"},
+		{"id": 79, "name": "65", "type": "CABLE_CAR", "color":"#008d36", "end1": "Sfintii Voievozi", "end2": "Dridu"},
+		{"id": 72, "name": "66", "type": "CABLE_CAR", "color":"#008d36", "end1": "Vasile Parvan", "end2": "Spitalul Fundeni"},
+		{"id": 75, "name": "69", "type": "CABLE_CAR", "color":"#008d36", "end1": "Baicului", "end2": "Valea Argesului"},
+		{"id": 80, "name": "70", "type": "CABLE_CAR", "color":"#008d36", "end1": "Vasile Parvan", "end2": "Bd. Basarabia"},
+
+		{"id": 824, "name": "101", "type": "BUS", "color":"#1d71b8", "end1": "Bucur Obor", "end2": "Faur"},
+		{"id": 150, "name": "102", "type": "BUS", "color":"#1d71b8", "end1": "C.F.R. Progresul", "end2": "Cora Pantelimon"},
+		{"id": 148, "name": "103", "type": "BUS", "color":"#1d71b8", "end1": "Isovolta", "end2": "Pantelimon"},
+		{"id": 186, "name": "243", "type": "BUS", "color":"#1d71b8", "end1": "C.F.R. Constanta", "end2": "Emil Racovita"},
+		{"id": 232, "name": "253", "type": "BUS", "color":"#1d71b8", "end1": "Faur", "end2": "Spitalul Fundeni"},
+		{"id": 136, "name": "311", "type": "BUS", "color":"#1d71b8", "end1": "Piata Rosetti", "end2": "Faur"},
+		{"id": 113, "name": "330", "type": "BUS", "color":"#1d71b8", "end1": "Complex Comercial Baneasa", "end2": "Faur"}
 	]
 }
