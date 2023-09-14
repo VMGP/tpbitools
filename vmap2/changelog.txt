@@ -1,3 +1,2 @@
-Update 12.09.2023<br>
-- Schimbare 19 pe traseul Chimopar - Zetarilor<br>
-- Adaugare linii 61 si 62
+Update 14.09.2023<br>
+- Adaugare linii 65, 66, 69, 70, 101, 102, 103, 243, 253, 311, 330
