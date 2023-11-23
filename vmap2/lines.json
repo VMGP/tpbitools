@@ -9,7 +9,7 @@
 		{"id": 878, "name": "12", "type": "TRAM", "color":"#BE1622", "end1": "Gara Basarab", "end2": "CFR Progresul"},
 		{"id": 53, "name": "14", "type": "TRAM", "color":"#BE1622", "end1": "Pantelimon", "end2": "Piata Sf. Vineri"},
 		{"id": 51, "name": "16", "type": "TRAM", "color":"#BE1622", "end1": "Platforma Industriala Pipera", "end2": "Piata Sf. Vineri"},
-		{"id": 47, "name": "19", "type": "TRAM", "color":"#BE1622", "end1": "Zetarilor", "end2": "Chimopar"},
+		{"id": 47, "name": "19", "type": "TRAM", "color":"#BE1622", "end1": "Zetarilor (Sapt.) / Piata Unirii (Weekend)", "end2": "Chimopar"},
 		{"id": 55, "name": "21", "type": "TRAM", "color":"#BE1622", "end1": "Pasaj Colentina", "end2": "Piata Sf. Gheorghe"},
 		{"id": 63, "name": "23", "type": "TRAM", "color":"#BE1622", "end1": "Faur Poarta 4", "end2": "Zetarilor"},
 		{"id": 64, "name": "24", "type": "TRAM", "color":"#BE1622", "end1": "Vasile Parvan", "end2": "Cartier Damaroaia"},
@@ -34,8 +34,9 @@
 		{"id": 150, "name": "102", "type": "BUS", "color":"#1d71b8", "end1": "C.F.R. Progresul", "end2": "Cora Pantelimon"},
 		{"id": 148, "name": "103", "type": "BUS", "color":"#1d71b8", "end1": "Isovolta", "end2": "Pantelimon"},
 		{"id": 186, "name": "243", "type": "BUS", "color":"#1d71b8", "end1": "C.F.R. Constanta", "end2": "Emil Racovita"},
-		{"id": 232, "name": "253", "type": "BUS", "color":"#1d71b8", "end1": "Faur", "end2": "Spitalul Fundeni"},
+		{"id": 232, "name": "253", "type": "BUS", "color":"#1d71b8", "end1": "Parc Teilor", "end2": "Spitalul Fundeni"},
 		{"id": 136, "name": "311", "type": "BUS", "color":"#1d71b8", "end1": "Piata Rosetti", "end2": "Faur"},
-		{"id": 113, "name": "330", "type": "BUS", "color":"#1d71b8", "end1": "Complex Comercial Baneasa", "end2": "Faur"}
+		{"id": 113, "name": "330", "type": "BUS", "color":"#1d71b8", "end1": "Complex Comercial Baneasa", "end2": "Parc Teilor"},
+		{"id": 117, "name": "330", "type": "BUS", "color":"#1d71b8", "end1": "Complex Comercial Baneasa", "end2": "Faur"}
 	]
 }
