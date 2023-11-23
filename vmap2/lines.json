@@ -37,6 +37,6 @@
 		{"id": 232, "name": "253", "type": "BUS", "color":"#1d71b8", "end1": "Parc Teilor", "end2": "Spitalul Fundeni"},
 		{"id": 136, "name": "311", "type": "BUS", "color":"#1d71b8", "end1": "Piata Rosetti", "end2": "Faur"},
 		{"id": 113, "name": "330", "type": "BUS", "color":"#1d71b8", "end1": "Complex Comercial Baneasa", "end2": "Parc Teilor"},
-		{"id": 117, "name": "330", "type": "BUS", "color":"#1d71b8", "end1": "Complex Comercial Baneasa", "end2": "Faur"}
+		{"id": 117, "name": "335", "type": "BUS", "color":"#1d71b8", "end1": "Complex Comercial Baneasa", "end2": "Faur"}
 	]
 }
