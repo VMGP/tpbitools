@@ -29,6 +29,7 @@
 		{"id": 72, "name": "66", "type": "CABLE_CAR", "color":"#008d36", "end1": "Vasile Parvan", "end2": "Spitalul Fundeni"},
 		{"id": 75, "name": "69", "type": "CABLE_CAR", "color":"#008d36", "end1": "Baicului", "end2": "Valea Argesului"},
 		{"id": 80, "name": "70", "type": "CABLE_CAR", "color":"#008d36", "end1": "Vasile Parvan", "end2": "Bd. Basarabia"},
+		{"id": 87, "name": "85", "type": "CABLE_CAR", "color":"#008d36", "end1": "Gara de Nord", "end2": "Baicului"},
 
 		{"id": 824, "name": "101", "type": "BUS", "color":"#1d71b8", "end1": "Bucur Obor", "end2": "Faur"},
 		{"id": 150, "name": "102", "type": "BUS", "color":"#1d71b8", "end1": "C.F.R. Progresul", "end2": "Cora Pantelimon"},
