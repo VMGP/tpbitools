@@ -276,11 +276,12 @@
 
 			let proxy_addr = "https://corsproxy.io/?"; //http://localhost:8008/
 			let fake_os_type = "Web";
-			let fake_os_ver = "amogus";
-			let fake_app_id = "bucc2cc5d8f-2bbd-4581-8da2-e6f37adf1ffe";
+			let fake_os_ver = "5.0 (Windows)";
+			let fake_app_id = "buce5f7ef96-ee21-4b31-9008-10e4ba95ae1f";
 			let fake_app_ver = "0.0.0";
 			let fake_device = "Firefox";
 			let api_key = "gcALgRyZHC,qFonZ=Jde";
+			let api_source = "ro.radcom.smartcity.web";
 			let login = false;
 			let login_id = "";
 
@@ -325,7 +326,8 @@
 																"OS-Version": fake_os_ver,
 																"Lang": "ro",
 																"Device-Name": fake_device,
-																"User-Info": login_id
+																"User-Info": login_id,
+																"Source": api_source
 					}});
 					}
 					else {
@@ -336,7 +338,8 @@
 																"OS-Version": fake_os_ver,
 																"Lang": "ro",
 																"Device-Name": fake_device,
-																"App-Key": api_key
+																"App-Key": api_key,
+																"Source": api_source
 						}});
 				}
 				}
