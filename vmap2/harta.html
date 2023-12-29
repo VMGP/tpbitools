@@ -432,6 +432,10 @@
 
 			async function setup() {
 				if (urlvars) {
+					if (!urlvars["noredir") {
+						window.location.href = "index.html";
+					}
+					
 					if (urlvars["proxy"]) {
 						proxy_addr = urlvars["proxy"];
 						document.getElementById("proxy").innerHTML = proxy_addr;
